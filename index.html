@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erox Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12141B;
+    --bg-raise: #191C26;
+    --line: rgba(231,233,238,0.09);
+    --text: #E7E9EE;
+    --text-dim: #9BA0AE;
+    --cyan: #3FD0C9;
+    --cyan-dim: rgba(63,208,201,0.12);
+    --ember: #FF5A36;
+    --ember-dim: rgba(255,90,54,0.14);
+    --gold: #E8B34C;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Rajdhani','Tajawal',sans-serif;
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(18,20,27,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .logo{font-size:22px; font-weight:700; font-family:'Rajdhani',sans-serif;}
+  .logo span{color:var(--ember);}
+  .nav-links{display:flex; gap:28px; font-size:15px; color:var(--text-dim);}
+  .nav-links a:hover{color:var(--text);}
+
+  /* HERO — split arena */
+  .hero{
+    position:relative;
+    min-height:78vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+  }
+  .hero-split{
+    position:absolute; inset:0;
+    display:flex;
+  }
+  .hero-split .half{flex:1; position:relative;}
+  .hero-split .half.left{
+    background:radial-gradient(120% 140% at 20% 30%, rgba(63,208,201,0.16), transparent 60%);
+  }
+  .hero-split .half.right{
+    background:radial-gradient(120% 140% at 80% 70%, rgba(255,90,54,0.18), transparent 60%);
+  }
+  .hero-content{
+    position:relative; z-index:2; text-align:center; width:100%;
+    padding:80px 24px;
+  }
+  .kicker{
+    color:var(--text-dim); font-size:15px; margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(42px, 8vw, 84px);
+    line-height:0.98;
+    margin-bottom:20px;
+  }
+  .hero h1 .e1{color:var(--cyan);}
+  .hero h1 .e2{color:var(--ember);}
+  .hero p{
+    color:var(--text-dim);
+    max-width:520px;
+    margin:0 auto 34px;
+    font-size:17px;
+  }
+  .hero-ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 26px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:15px;
+    font-family:'Rajdhani',sans-serif;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-cyan{background:var(--cyan); color:#0B1210;}
+  .btn-ember{background:var(--ember); color:#1A0B06;}
+  .btn-ghost{border-color:var(--line); color:var(--text);}
+
+  /* divider line down the middle of hero on desktop */
+  .hero-seam{
+    position:absolute; top:0; bottom:0; left:50%;
+    width:1px;
+    background:linear-gradient(to bottom, transparent, var(--line) 20%, var(--line) 80%, transparent);
+    z-index:1;
+  }
+
+  /* SECTION HEADERS */
+  .section{padding:88px 0;}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:38px; flex-wrap:wrap; gap:10px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  .section-head h2{font-size:34px;}
+  .section-head p{color:var(--text-dim); font-size:15px;}
+  .accent-cyan{color:var(--cyan);}
+  .accent-ember{color:var(--ember);}
+
+  .section.accounts{background:linear-gradient(180deg, rgba(63,208,201,0.05), transparent 40%);}
+  .section.bots{background:linear-gradient(180deg, rgba(255,90,54,0.05), transparent 40%);}
+
+  /* CARDS */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(250px,1fr));
+    gap:18px;
+  }
+  .card{
+    background:var(--bg-raise);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .card-media{
+    aspect-ratio:16/10;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 10px, transparent 10px 20px),
+      var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-dim);
+    font-size:13px;
+    border-bottom:1px solid var(--line);
+  }
+  .card-body{padding:18px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .card-title{font-size:19px; font-family:'Rajdhani',sans-serif; font-weight:700;}
+  .card-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .tag{
+    font-size:12px; padding:3px 9px; border-radius:5px;
+    background:var(--cyan-dim); color:var(--cyan);
+  }
+  .bots .tag{background:var(--ember-dim); color:var(--ember);}
+  .card-desc{color:var(--text-dim); font-size:14px; flex:1;}
+  .card-foot{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:10px; border-top:1px solid var(--line);
+  }
+  .price{font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; color:var(--gold);}
+  .order-btn{
+    font-size:14px; font-weight:700; padding:9px 16px; border-radius:7px;
+    background:var(--cyan); color:#0B1210;
+    font-family:'Rajdhani',sans-serif;
+  }
+  .bots .order-btn{background:var(--ember); color:#1A0B06;}
+
+  /* HOW IT WORKS */
+  .how{padding:80px 0; border-top:1px solid var(--line);}
+  .how-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:30px;}
+  .how-step{padding:22px; background:var(--bg-raise); border:1px solid var(--line); border-radius:12px;}
+  .how-step h3{font-size:19px; margin-bottom:8px;}
+  .how-step p{color:var(--text-dim); font-size:14px;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:36px 0;
+    color:var(--text-dim);
+    font-size:14px;
+    text-align:center;
+  }
+  footer a{color:var(--cyan);}
+
+  @media (max-width:720px){
+    .hero-seam{display:none;}
+    .how-grid{grid-template-columns:1fr;}
+    .section-head{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Erox<span>Store</span></div>
+    <div class="nav-links">
+      <a href="#accounts">الحسابات</a>
+      <a href="#bots">البوتات</a>
+      <a href="#how">كيف نشتغل</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-split"><div class="half left"></div><div class="half right"></div></div>
+  <div class="hero-seam"></div>
+  <div class="hero-content wrap">
+    <div class="kicker">حسابات وأدوات فري فاير — بتسليم موثوق</div>
+    <h1><span class="e1">حسابات</span> قوية. <span class="e2">بوتات</span> جاهزة.</h1>
+    <p>كل شي يخص فري فاير بمكان وحد: حسابات جاهزة برتب وسكنات مختارة، وبوتات تفعّل الرقصات واللايكات والسكواد.</p>
+    <div class="hero-ctas">
+      <a href="#accounts" class="btn btn-cyan">تصفح الحسابات</a>
+      <a href="#bots" class="btn btn-ember">تصفح البوتات</a>
+    </div>
+  </div>
+</section>
+
+<section class="section accounts" id="accounts">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="accent-cyan">الحسابات</h2>
+      <p>كل حساب موصوف بالرتبة والمحتوى قبل ما تطلب</p>
+    </div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-media">صورة الحساب</div>
+        <div class="card-body">
+          <div class="card-title">حساب رتبة هيروك</div>
+          <div class="card-tags"><span class="tag">سكنات نادرة</span><span class="tag">حيوانات أليفة مطورة</span></div>
+          <p class="card-desc">حساب مستوى متقدم، جاهز للتسليم فورًا بعد التأكيد.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20حساب%20رتبة%20هيروك">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media">صورة الحساب</div>
+        <div class="card-body">
+          <div class="card-title">حساب مبتدئين</div>
+          <div class="card-tags"><span class="tag">سعر مناسب</span></div>
+          <p class="card-desc">مثالي لمن بدو يبدأ بحساب فيه شوية محتوى بدون كلفة عالية.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20حساب%20مبتدئين">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media">صورة الحساب</div>
+        <div class="card-body">
+          <div class="card-title">حساب مجموعة سكنات</div>
+          <div class="card-tags"><span class="tag">سكنات موسمية</span></div>
+          <p class="card-desc">تجميعة سكنات ومظاهر محدودة الإصدار.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20حساب%20مجموعة%20سكنات">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section bots" id="bots">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="accent-ember">البوتات</h2>
+      <p>خدمات تفعّل بضغطة، التفاصيل تتأكد على واتساب</p>
+    </div>
+    <div class="grid bots">
+
+      <div class="card">
+        <div class="card-media">معاينة البوت</div>
+        <div class="card-body">
+          <div class="card-title">بوت الرقصات</div>
+          <div class="card-tags"><span class="tag">كل الرقصات</span></div>
+          <p class="card-desc">يفعّل كل رقصات فري فاير على حسابك.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20بوت%20الرقصات">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media">معاينة البوت</div>
+        <div class="card-body">
+          <div class="card-title">بوت مقابر الطلبات</div>
+          <div class="card-tags"><span class="tag">تنفيذ سريع</span></div>
+          <p class="card-desc">ينفذ طلبات المقابر بشكل تلقائي ومنظم.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20بوت%20مقابر%20الطلبات">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media">معاينة البوت</div>
+        <div class="card-body">
+          <div class="card-title">بوت سكواد 6</div>
+          <div class="card-tags"><span class="tag">لعب جماعي</span></div>
+          <p class="card-desc">يجهزلك سكواد من 6 أعضاء بدل الحد العادي.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20بوت%20سكواد%206">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media">معاينة البوت</div>
+        <div class="card-body">
+          <div class="card-title">بوت اللايكات</div>
+          <div class="card-tags"><span class="tag">دفعة سريعة</span></div>
+          <p class="card-desc">يزيد عدد اللايكات على بروفايلك.</p>
+          <div class="card-foot">
+            <span class="price">اطلب السعر</span>
+            <a class="order-btn" target="_blank" href="https://wa.me/213554608106?text=مرحبا%2C%20حاب%20اسأل%20عن%20بوت%20اللايكات">اطلب</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head" style="border:none; margin-bottom:0;">
+      <h2>كيف تطلب</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <h3 class="accent-cyan">اختر المنتج</h3>
+        <p>تصفح الحسابات أو البوتات وشوف التفاصيل المتاحة على كل بطاقة.</p>
+      </div>
+      <div class="how-step">
+        <h3 class="accent-ember">اضغط اطلب</h3>
+        <p>بيفتحلك واتساب مباشرة مع اسم المنتج جاهز بالرسالة.</p>
+      </div>
+      <div class="how-step">
+        <h3>أكّد وسلّم</h3>
+        <p>نتفق على السعر وطريقة التسليم على واتساب أو انستقرام.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Erox Store — تواصل عبر <a target="_blank" href="https://wa.me/213554608106">واتساب</a>
+  </div>
+</footer>
+
+</body>
+</html>
